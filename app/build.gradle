@@ -1,0 +1,23 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'dev.mpyre.standalone'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'dev.mpyre.standalone.homedrums'
+        minSdk 26
+        targetSdk 35
+        versionCode 10318
+        versionName '1.0.3-8track.18-drumtouch'
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}
+dependencies { implementation 'androidx.webkit:webkit:1.13.0' }
+tasks.register('verifyEmulatorAssets') {
+    doLast {
+        def html = file('src/main/assets/index.html')
+        if (!html.exists() || html.length() < 100000 || !html.getText('UTF-8').contains('const PACK_B64 = "')) {
+            throw new GradleException('Firmware fehlt: python3 scripts/prepare_emulator.py ausführen')
+        }
+    }
+}
+tasks.named('preBuild').configure { dependsOn 'verifyEmulatorAssets' }

@@ -1,0 +1,8 @@
+.gradle/
+build/
+app/build/
+app/src/main/assets/index.html
+.generated/
+local.properties
+*.apk
+__pycache__/

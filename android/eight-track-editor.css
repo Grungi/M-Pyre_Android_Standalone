@@ -1,0 +1,23 @@
+
+<style id="mpyre-eight-track-editor">
+/* The original companion/editor uses four fixed mixer columns. Eight tracks
+ * remain distinct, with horizontal scrolling rather than 8 cramped faders. */
+.mixer {
+  display:flex !important;
+  flex-wrap:nowrap !important;
+  align-items:stretch;
+  gap:10px;
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  scrollbar-width:thin;
+  padding:6px 4px 16px;
+  -webkit-overflow-scrolling:touch;
+}
+.mixer > * { flex:0 0 clamp(135px,18vw,180px); min-width:125px; }
+.trackbar { flex-wrap:nowrap !important; overflow-x:auto; padding:6px 4px 10px; scrollbar-width:thin; }
+.trackbar > button { flex:0 0 auto; min-width:80px; }
+@media(max-width:760px) {
+  .mixer > * { flex-basis:145px; }
+  .trackbar > button { min-height:42px; }
+}
+</style>

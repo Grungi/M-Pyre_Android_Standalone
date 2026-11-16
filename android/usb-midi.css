@@ -1,0 +1,14 @@
+<style id="usb-midi-style">
+#usb-midi-controls{padding:12px;margin:7px 0 16px;background:#251a12;border:1px solid #a36b3f;border-radius:10px;font:13px system-ui,sans-serif;color:#efdeca}
+#usb-midi-controls strong{font-size:15px;color:#ffb976}
+#usb-midi-controls p{line-height:1.4;margin:7px 0}
+#usb-midi-controls label{display:block;font-size:12px;font-weight:700;margin:10px 0 5px}
+#usb-midi-controls select{display:block;box-sizing:border-box;width:100%;min-height:48px;padding:8px;background:#382419;color:#fff0dc;border:1px solid #b77a45;border-radius:8px;font:14px system-ui,sans-serif}
+#usb-midi-controls #usb-midi-status{font-weight:800;color:#ffde91;font-size:14px}
+#usb-midi-controls button{min-height:54px; margin:10px 0 12px; display:block;width:100%;background:#703b1e;color:#ffecdd;border:1px solid #d29360;border-radius:8px;font-weight:bold;touch-action:manipulation}
+#usb-midi-controls button:active{background:#b85d23;transform:translateY(1px)}
+#usb-midi-controls button:focus-visible{outline:3px solid #ffd09b;outline-offset:2px}
+#usb-midi-controls #usb-midi-help{font-size:12px;line-height:1.4}
+#android-options-panel{box-sizing:border-box;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scroll-padding-bottom:30px;padding-bottom:24px}
+#usb-midi-controls button{position:relative;z-index:2;pointer-events:auto;user-select:none;-webkit-tap-highlight-color:#ff9c5366}
+</style>

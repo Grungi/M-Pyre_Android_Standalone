@@ -1,0 +1,195 @@
+
+<style id="android-performance-styles">
+  html, body { width:100%; height:100%; overflow:hidden; background:#0b0908; overscroll-behavior:none; }
+  .page {
+    width:100vw; max-width:100vw; height:100vh; height:100dvh; min-height:0;
+    display:flex; flex-direction:column; align-items:stretch;
+    gap:0; padding:4px max(5px,env(safe-area-inset-right,0px)) 4px max(5px,env(safe-area-inset-left,0px));
+    overflow:hidden;
+  }
+  .page > h1, .page > .note, .page > .foot { display:none !important; }
+  .fm1 {
+    width:100%; min-width:0; min-height:0; flex:1 1 0;
+    display:flex; flex-direction:column; padding:6px;
+    border-radius:10px; margin:0; overflow:hidden;
+  }
+  .top {
+    display:grid !important; grid-template-columns:min(42dvh,260px) minmax(0,1fr) !important;
+    height:min(42dvh,260px); min-height:0; flex:0 0 auto;
+    align-items:stretch; gap:clamp(5px,1.3vw,14px); overflow:hidden;
+  }
+  .screen { width:100% !important; height:100% !important; max-width:100%; aspect-ratio:1; border-width:3px; }
+  .controls { gap:2px; min-width:0; min-height:0; justify-content:space-between; overflow:hidden; }
+  .controls > .row { min-height:0; flex:1 1 0; display:flex; flex-wrap:nowrap; gap:clamp(2px,0.45vw,9px); align-items:center; }
+  .controls .knob { width:clamp(35px,6vw,55px); flex:0 1 clamp(35px,6vw,55px); gap:1px; }
+  .controls .knob .dial { width:clamp(26px,6.5dvh,40px); height:clamp(26px,6.5dvh,40px); }
+  .controls .knob.big .dial { width:clamp(28px,7dvh,44px); height:clamp(28px,7dvh,44px); }
+  .controls .knob label { font-size:clamp(7px,1.5dvh,10px); letter-spacing:0; line-height:1.05; }
+  .controls .btn {
+    flex:1 1 0; min-width:0; height:clamp(26px,8dvh,43px);
+    padding:0 2px; border-radius:5px;
+    font-size:clamp(9px,1.7dvh,13px); letter-spacing:0; white-space:nowrap;
+  }
+  #android-keybar {
+    flex:0 0 clamp(28px,5dvh,36px); min-height:0;
+    margin-top:4px; display:flex; align-items:center; gap:5px;
+    justify-content:space-between;
+  }
+  #android-keybar button {
+    min-height:100%; flex:0 0 auto; background:#352820; color:#fff0de; border:1px solid #d86a2d;
+    border-radius:5px; padding:0 clamp(6px,1.4vw,20px); font-weight:700; font-size:clamp(11px,1.7dvh,14px);
+    touch-action:manipulation;
+  }
+  #android-keybar button:disabled { opacity:.28; border-color:#685c50; }
+  #key-range { flex:1; text-align:center; color:#ffcb8e; font-weight:700; font-size:clamp(12px,2.2dvh,16px); }
+  #android-keybar #android-menu-btn { border-color:#635144; background:#241f1b; }
+  #android-keybar button[hidden] { display:none !important; }
+  #android-keybar #key-zoom { border-color:#cc8b49; min-width:74px; }
+  #android-keybar #key-zoom[aria-pressed="true"] {
+    background:#7b391b; color:#fff; box-shadow:inset 0 0 0 1px #ff9d4a;
+  }
+  .keys {
+    flex:1 1 0 !important; min-height:0; height:0 !important;
+    margin:5px 0 0 !important; position:relative; overflow:hidden;
+    border:2px solid #a9805b; border-radius:4px 4px 8px 8px;
+    background:#0c0908; touch-action:none; user-select:none; -webkit-user-select:none;
+  }
+  .key { touch-action:none; -webkit-tap-highlight-color:transparent; user-select:none; box-sizing:border-box; }
+  .key.w { height:100% !important; border:2px solid #554c45; background:linear-gradient(#fffdf8,#eee8de 70%,#e4d9c9);
+           box-shadow:inset 0 -9px 0 #d1c5b5; border-radius:0 0 7px 7px; }
+  .key.b { height:62% !important; z-index:3; border:2px solid #130f0d;
+           background:linear-gradient(#393331,#171310 35%,#090706);
+           box-shadow:0 4px 9px #0009; border-radius:0 0 6px 6px; }
+  .key.w.down { background:linear-gradient(#ffd692,#ffb653 80%,#e38b18); box-shadow:inset 0 -9px 0 #cc7614; }
+  .key.b.down { background:linear-gradient(#ff9d45,#a7450a); box-shadow:0 0 14px #ef601fcc; }
+  .key.w .lab { font-size:clamp(10px,1.8dvh,14px); font-weight:800; color:#594436; bottom:18px; }
+  .key.b .lab { color:#f2d4b0; }
+  .key .led { bottom:6px; }
+  #android-options-panel {
+    display:none; position:fixed; z-index:30; right:8px; top:46px;
+    max-width:min(580px,90vw); max-height:calc(100dvh - 52px);
+    padding:14px; background:#1e1916; color:#f0e9df;
+    border:1px solid #8b6544; border-radius:10px;
+    box-shadow:0 10px 30px #000c; overflow:auto; touch-action:pan-y;
+  }
+  #android-options-panel.open { display:block; }
+  #android-options-panel .foot { display:flex !important; width:100%; margin:5px 0 12px; gap:9px; }
+  #android-options-panel .songs .row { display:flex; flex-wrap:wrap; gap:8px; }
+  @media (max-height:490px) and (orientation:landscape) {
+    .top { height:min(39dvh,220px); grid-template-columns:min(39dvh,220px) minmax(0,1fr) !important; }
+    .controls .btn { height:clamp(24px,7.7dvh,34px); }
+    .controls .knob .dial { width:clamp(23px,6dvh,32px); height:clamp(23px,6dvh,32px); }
+    .controls .knob.big .dial { width:clamp(26px,6.5dvh,36px); height:clamp(26px,6.5dvh,36px); }
+  }
+
+  /* Landscape control surface V4: seven knobs in one usable horizontal row.
+     The display becomes ~15% larger; the keyboard retains flex sizing. */
+  .top {
+    height:min(46dvh,300px);
+    grid-template-columns:min(46dvh,300px) minmax(0,1fr) !important;
+  }
+  .controls {
+    display:grid;
+    grid-template-rows: minmax(0,1.12fr) minmax(0,.58fr) minmax(0,.58fr);
+    align-content:stretch;
+    justify-content:stretch;
+    gap:clamp(4px,1dvh,9px);
+  }
+  .controls > .row { min-width:0; min-height:0; }
+  #encs1 {
+    display:flex; flex-wrap:nowrap; justify-content:space-around;
+    align-items:center; gap:clamp(2px,.4vw,8px);
+  }
+  #encs2 { display:none !important; }
+  #encs1 .knob {
+    width:0; min-width:0; max-width:none; flex:1 1 0;
+    display:flex; flex-direction:column; gap:4px;
+    align-items:center; justify-content:center; touch-action:pan-x;
+  }
+  #encs1 .dial-controls {
+    display:flex; flex:0 0 auto; align-items:center; justify-content:center;
+    gap:clamp(1px,.3vw,5px); min-width:0; width:100%;
+  }
+  #encs1 .knob .dial {
+    flex:0 0 auto;
+    width:clamp(37px,8.8dvh,62px) !important;
+    height:clamp(37px,8.8dvh,62px) !important;
+    border:2px solid #4c3a2e;
+    box-shadow:0 3px 9px #0009, inset 0 0 0 1px #59483d;
+    cursor:ew-resize; touch-action:none;
+  }
+  #encs1 .knob .dial::after {
+    height:16px; top:5px; transform-origin:50% 23px;
+  }
+  #encs1 .knob label {
+    color:#e0d3c4; font-size:clamp(9px,1.75dvh,12px);
+    font-weight:650; line-height:1.15; min-height:1em;
+    text-align:center; letter-spacing:0; white-space:nowrap;
+  }
+  #encs1 .knob-step {
+    display:flex; align-items:center; justify-content:center;
+    flex:0 1 31px; min-width:26px;
+    width:clamp(26px,3vw,31px);
+    height:clamp(32px,7dvh,42px);
+    padding:0; border:1px solid #855a42; border-radius:7px;
+    color:#ffdfbc; background:#382922;
+    box-shadow:0 2px 4px #0006;
+    font:700 clamp(18px,3dvh,24px)/1 sans-serif;
+    touch-action:manipulation; user-select:none;
+  }
+  #encs1 .knob-step:active { background:#a8481c; color:white; }
+  #btns1, #btns2 { align-items:stretch; }
+  #btns1 .btn, #btns2 .btn {
+    height:clamp(35px,8dvh,52px); align-self:center;
+  }
+  @media (max-height:490px) and (orientation:landscape) {
+    .top {
+      height:min(44dvh,250px);
+      grid-template-columns:min(44dvh,250px) minmax(0,1fr) !important;
+    }
+    #encs1 .knob .dial { width:clamp(30px,7dvh,43px) !important; height:clamp(30px,7dvh,43px) !important; }
+    #encs1 .knob-step { min-width:23px; width:23px; height:30px; }
+    #encs1 .knob label { font-size:9px; }
+  }
+
+  /* Explicit dismiss controls for the song import/export options modal. */
+  #android-options-backdrop {
+    display:none; position:fixed; inset:0; z-index:29;
+    background:rgba(0,0,0,.48); touch-action:none;
+  }
+  #android-options-backdrop.open { display:block; }
+  #android-options-panel.open { display:block; z-index:30; }
+  #android-options-header {
+    position:sticky; top:-14px; z-index:1;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:14px; min-height:54px;
+    margin:-14px -14px 12px; padding:8px 12px;
+    background:#2a201c; border-bottom:1px solid #765844;
+    border-radius:10px 10px 0 0;
+  }
+  #android-options-header strong { font-size:15px; color:#ffe4bf; }
+  #android-options-close {
+    display:flex; align-items:center; justify-content:center;
+    min-width:120px; min-height:42px;
+    border:1px solid #ed9559; border-radius:8px;
+    background:#68341e; color:#fff5ec; font:bold 14px sans-serif;
+    touch-action:manipulation;
+  }
+  #android-options-close:active { background:#b35424; }
+
+  /* Extra thumb travel above the seven knobs: 4-row panel with top spacer.
+     Original dial capture and +/- buttons remain unchanged. */
+  .controls {
+    grid-template-rows:minmax(24px,.34fr) minmax(0,1.06fr)
+      minmax(0,.56fr) minmax(0,.56fr);
+  }
+  #encs1 { grid-row:2; }
+  #btns1 { grid-row:3; }
+  #btns2 { grid-row:4; }
+  @media (max-height:490px) and (orientation:landscape) {
+    .controls {
+      grid-template-rows:minmax(20px,.25fr) minmax(0,1.03fr)
+        minmax(0,.57fr) minmax(0,.57fr);
+    }
+  }
+</style>

@@ -1,0 +1,8 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+Full license: https://creativecommons.org/licenses/by/4.0/legalcode
+License deed: https://creativecommons.org/licenses/by/4.0/
+Original M-PYRE soundpack and artwork copyright (C) 2026 History Of Sky.
+Source: https://github.com/HistoryOfSky/m-pyre/tree/v1.0.3
+The original recorded soundpack is used unchanged in the Android build.
+M-PYRE graphics are rendered or compressed when embedded.
+Please retain the creator's attribution, license link and change notices.

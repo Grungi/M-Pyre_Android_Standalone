@@ -1,0 +1,88 @@
+
+<style id="android-lcd-touch-styles">
+/* Opt-in layout. Classic input mode does not inherit these rules at all. */
+#android-keybar #lcd-touch-toggle {
+  border-color:#c46c38;
+  background:#2d2722;
+  min-width:90px;
+  white-space:nowrap;
+}
+#android-keybar #lcd-touch-toggle[aria-pressed="true"] {
+  color:#1b110a;
+  background:#ffc078;
+  border-color:#ffe1ae;
+  box-shadow:0 0 0 1px #ffb865 inset;
+}
+.fm1.lcd-touch-mode .top {
+  /* POCO landscape: more than 50% bigger than the previous 44dvh LCD. */
+  height:min(72dvh,520px);
+  grid-template-columns:min(72dvh,520px) minmax(0,1fr) !important;
+}
+.fm1.lcd-touch-mode .screen {
+  width:100% !important;
+  height:100% !important;
+  min-height:0;
+  min-width:0;
+  border:3px solid #eaa05b;
+  box-shadow:0 0 0 1px #5a3826,0 0 20px #c66b3519;
+}
+.fm1.lcd-touch-mode #lcd {
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  cursor:crosshair;
+}
+.fm1.lcd-touch-mode #android-keybar { flex-shrink:0; }
+.fm1.lcd-touch-mode .keys { min-height:52px; }
+.fm1.lcd-touch-mode .controls {
+  grid-template-rows:minmax(10px,.13fr) minmax(0,1fr) minmax(0,.48fr) minmax(0,.48fr);
+}
+.fm1.lcd-touch-mode #encs1 .knob .dial {
+  width:clamp(32px,7.7dvh,56px) !important;
+  height:clamp(32px,7.7dvh,56px) !important;
+}
+.fm1.lcd-touch-mode #btns1 .btn,
+.fm1.lcd-touch-mode #btns2 .btn { height:clamp(28px,7dvh,48px); }
+@media (orientation:portrait) {
+  .fm1.lcd-touch-mode .top {
+    display:flex !important;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+    height:min(69dvh,730px);
+    gap:5px;
+    overflow:hidden;
+  }
+  .fm1.lcd-touch-mode .screen {
+    width:min(56dvh,92vw,440px) !important;
+    height:auto !important;
+    max-height:56dvh;
+    align-self:center;
+    flex:0 0 auto;
+    aspect-ratio:1 / 1;
+  }
+  .fm1.lcd-touch-mode .controls { flex:1 1 0; min-height:0; }
+  .fm1.lcd-touch-mode .keys { min-height:72px; }
+}
+@media (max-height:490px) and (orientation:landscape) {
+  .fm1.lcd-touch-mode .top {
+    height:min(71dvh,450px);
+    grid-template-columns:min(71dvh,450px) minmax(0,1fr) !important;
+  }
+  .fm1.lcd-touch-mode .keys { min-height:48px; }
+  .fm1.lcd-touch-mode #encs1 .knob .dial {
+    width:clamp(27px,6dvh,43px) !important;
+    height:clamp(27px,6dvh,43px) !important;
+  }
+}
+@media (max-width:700px) {
+  #android-keybar { gap:3px; }
+  #android-keybar #lcd-touch-toggle { min-width:75px; font-size:10px; padding:0 4px; }
+  #android-keybar #android-menu-btn { padding:0 6px; }
+  #android-keybar #key-range { font-size:11px; }
+}
+#lcd-touch-help {margin:8px 0 12px; padding:10px; border:1px solid #805943; border-radius:8px; background:#30241e; color:#f8ead8; font-size:13px; line-height:1.45;}
+#lcd-touch-help summary {cursor:pointer; font-weight:700; min-height:30px; touch-action:manipulation;}
+#lcd-touch-help p {margin:8px 0 0;}
+</style>

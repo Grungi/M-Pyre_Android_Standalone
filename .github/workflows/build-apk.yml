@@ -1,0 +1,112 @@
+name: Build M-PYRE Home Drum Touch v18
+on:
+  push:
+    branches: [main, feature/8-tracks-android-webeditor, feature/usb-midi-host-usb-b, feature/home-drum-pads-v18, chore/license-compliance-v18]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mpyre-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build-apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install LLVM and audio prerequisites
+        run: sudo apt-get update && sudo apt-get install -y clang lld ffmpeg
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - name: Prepare original firmware emulator and verify source and soundpack
+        run: python scripts/prepare_emulator.py
+      - name: Verify bundled GPL, MIT, Apache, CC BY, CC0 and font notices
+        run: python tests/check_legal.py
+      - name: Verify low-latency WASM package
+        run: python tests/check_low_latency.py
+      - name: Check embedded keyboard JavaScript syntax
+        run: python tests/check_browser_script.py
+      - name: Verify larger display and touch knob gestures
+        run: python tests/check_knobs.py
+      - name: Verify Classic/Touch switch, larger LCD and pointer bridge
+        run: python tests/check_lcd_touch.py
+      - name: Exercise LCD touch in the actual M-PYRE firmware WASM
+        run: node tests/test_lcd_touch.cjs
+      - name: Verify options popup can be dismissed
+        run: python tests/check_menu_close.py
+      - name: Validate same-firmware touch-first Studio editing bridge
+        run: python tests/check_studio.py
+      - name: Run real WebAssembly Studio integration test
+        run: node tests/test_studio_bridge.cjs
+      - name: Verify 7+1 track project persistence and legacy import
+        run: node tests/test_eight_tracks.cjs
+      - name: Run official M-PYRE editor SysEx protocol tests on real WASM
+        run: node tests/test_full_editor_bridge.cjs
+      - name: Verify native Song backup command implementation
+        run: python tests/check_song_backup.py
+      - name: Verify Song Read / Send and project backup through real WASM SysEx
+        run: node tests/test_song_backup.cjs
+      - name: Verify original PC Song page transport UI
+        run: python tests/check_pc_song_transport.py
+      - name: Play and Stop the actual firmware Song directly from PC editor
+        run: node tests/test_pc_song_transport.cjs
+      - name: Verify chromatic Note Grid and step brush in PC and Android editors
+        run: python tests/check_note_grid.py
+      - name: Verify both companion editors can address eight native tracks
+        run: python tests/check_eight_track_editor.py
+      - name: Exercise note ties, rapid repeats, bulk edits and drum ratchets on real WASM
+        run: node tests/test_seq_brush.cjs
+      - name: Test native pattern chaining and song-mode timing
+        run: node tests/test_pattern_chain.cjs
+      - name: Verify Android touch pattern chain and persistence
+        run: python tests/check_chain.py
+      - name: Verify all offline editor panels and native save bridge
+        run: python tests/check_full_editor.py
+      - name: Verify native USB-MIDI gadget integration
+        run: python tests/check_usb_midi.py
+      - name: Verify Windows and Android PC editor MIDI port discovery
+        run: node tests/test_pc_midi_ports.cjs
+      - name: USB-MIDI SysEx transport and real firmware round-trip
+        run: node tests/test_usb_midi.cjs
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Install Android SDK 35 with preinstalled runner tools
+        run: |
+          SDKMANAGER="$(command -v sdkmanager || find "${ANDROID_HOME:-/usr/local/lib/android/sdk}/cmdline-tools" -type f -name sdkmanager | head -1)"
+          test -n "$SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Build debug APK
+        run: gradle --no-daemon :app:assembleDebug
+      - name: Verify APK
+        run: test -s app/build/outputs/apk/debug/app-debug.apk && sha256sum app/build/outputs/apk/debug/app-debug.apk
+      - name: Package complete corresponding source from this same build
+        run: python scripts/package_release_source.py
+      - name: Verify APK legal notices and complete matching source archive
+        run: python tests/check_release_source.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: M-PYRE-Android-v1.0.3-8Tracks-v18-HomeDrumTouch-debug-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: M-PYRE-PC-WebEditor-8Tracks-v18
+          path: app/src/main/assets/pc-usb-editor.html
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: M-PYRE-v18-corresponding-source
+          path: build/release/M-PYRE-v18-corresponding-source.tar.gz
+          if-no-files-found: error

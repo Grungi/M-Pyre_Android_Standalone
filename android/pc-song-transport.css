@@ -1,0 +1,8 @@
+<style id="pc-song-transport-style">
+#pc-song-transport{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:13px}
+#pc-song-transport button{min-height:44px;min-width:145px;padding:10px 18px;font-weight:800;font-size:15px;cursor:pointer}
+#pc-song-transport button:disabled{opacity:.55;cursor:wait}
+#pc-song-status{margin:2px 0 13px;color:#d9bba0;font-size:13px;min-height:20px}
+#pc-song-status[data-tone="error"]{color:#ff7c65}
+#pc-song-status[data-tone="ok"]{color:#ffc27f}
+</style>

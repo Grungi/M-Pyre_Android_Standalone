@@ -1,0 +1,69 @@
+<style id="mpyre-editor-android-touch">
+/* Mobile M-PYRE editing layout. Keep EVERY official editor tab available,
+ * but bring navigation and touch targets forward for landscape phones. */
+@media (pointer:coarse), (max-width:1100px) {
+  html, body { width:100%; min-height:100%; overflow-x:hidden; }
+  body { font-size:15px; line-height:1.3; }
+  .app { display:flex !important; flex-direction:column !important; min-height:100dvh !important; }
+  .side {
+    position:sticky; top:0; z-index:110; display:flex !important; height:auto !important;
+    max-height:66px; min-height:52px; width:100%; box-sizing:border-box;
+    flex-direction:row !important; align-items:center; gap:7px !important;
+    padding:3px 7px !important; overflow:hidden !important; border-right:0 !important;
+    border-bottom:2px solid var(--line) !important; background:var(--bg);
+  }
+  .side .brand, .side .devline, .side #version, .side #live, .side #mock,
+  .side .links, .side #install, .side #offline { display:none !important; }
+  .tabs { display:flex !important; flex-direction:row !important; overflow-x:auto !important;
+          flex:1 1 auto; flex-wrap:nowrap !important; gap:4px !important;
+          scrollbar-width:thin; touch-action:pan-x; -webkit-overflow-scrolling:touch; }
+  .tabs .navh { display:none !important; }
+  .tabs button {
+    flex:0 0 auto; white-space:nowrap; padding:9px 11px !important; min-height:45px;
+    border-left:0 !important; border-bottom:3px solid transparent;
+    font-size:14px !important; text-transform:uppercase;
+  }
+  .tabs button[aria-selected=true] { border-bottom-color:var(--f3) !important; }
+  .devcard { margin:0 !important; padding:0 !important; border:0 !important;
+             flex:0 0 auto; min-width:88px; }
+  #connect { width:100% !important; min-height:44px; padding:8px !important; font-size:13px; }
+  .main { width:100%; min-width:0; padding:10px 12px 34px !important;
+          max-height:calc(100dvh - 52px); overflow-y:auto;
+          overscroll-behavior-y:contain; -webkit-overflow-scrolling:touch; }
+  #pagetitle { font-size:26px !important; line-height:27px !important; }
+  .titlebar { gap:8px !important; }
+  .top { gap:8px !important; }
+  .panel { min-width:0; max-width:100%; }
+  .card, .group { min-width:0; }
+  .bar { gap:6px !important; }
+  button { min-height:42px; padding:8px 11px; }
+  select { min-height:42px; }
+  input[type=number], input[type=text], input[type=search] { min-height:42px; }
+  input[type=checkbox] { width:22px; height:22px; }
+  input[type=range] { height:34px; min-height:34px; touch-action:pan-x; }
+  input[type=range]::-webkit-slider-thumb {
+    width:22px; height:30px; margin-top:-14px; border-radius:6px;
+  }
+  .seg button, .bar button { min-height:42px; }
+  .preview { padding:7px 0 !important; margin-bottom:10px !important; }
+  .preview[data-expanded=false] .preview-sequence { display:none; }
+  .preview-keys.piano, .preview-keys.piano .white-key { height:115px; }
+  .preview-keys.piano .black-key { height:70px; }
+  .preview-keys.pads button { min-height:56px; }
+  .seqtools input[type=number] { width:64px; }
+  dialog { max-width:min(96vw,780px) !important; max-height:90dvh !important; overflow-y:auto; }
+  .rollbox { max-width:100%; overflow-x:auto; touch-action:pan-x pan-y; }
+  .rollbox canvas, .preview-keys button { touch-action:none; }
+  #mixer { width:100%; overflow-x:auto; }
+  .samples, #smpslots { max-width:100%; overflow-x:auto; }
+  .thwrap { display:flex; gap:10px; flex-wrap:wrap; }
+  .groups { max-width:100%; }
+}
+@media (max-height:440px) and (orientation:landscape) {
+  .side { max-height:52px; }
+  .main { max-height:calc(100dvh - 52px); padding-top:6px !important; }
+  #pagetitle { font-size:23px !important; }
+  button, select, input[type=number], input[type=text] { min-height:39px; }
+  .tabs button { min-height:42px; }
+}
+</style>

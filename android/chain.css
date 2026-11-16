@@ -1,0 +1,7 @@
+<style id="pattern-chain-css">
+#studio-chain{margin:12px 0;padding:12px;background:#21160f;border:1px solid #93663c;border-radius:11px}
+#studio-chain .chain-pad,#studio-chain .chain-tools{display:flex;gap:7px;flex-wrap:wrap;margin:9px 0}
+#studio-chain .chain-pad button{flex:1 0 20%;min-height:58px;font:bold 20px system-ui,sans-serif}
+#studio-chain .chain-tools button{flex:1 0 43%;min-height:48px}
+#studio-chain #chain-order{min-height:42px;padding:10px;color:#ffd4a4;border:1px dashed #955b32;border-radius:7px;font-weight:750}
+</style>

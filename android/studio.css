@@ -1,0 +1,84 @@
+
+<style id="android-studio-styles">
+/* Touch-first built-in song editor. Controls are at least 44px high. */
+#android-studio {
+  position:fixed; inset:0; z-index:40; display:flex; flex-direction:column;
+  gap:6px; padding: max(6px,env(safe-area-inset-top,0px)) max(8px,env(safe-area-inset-right,0px))
+              max(6px,env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px));
+  background:#130f0c; color:#f8eee1; font-family:system-ui,sans-serif;
+  overflow:hidden; box-sizing:border-box;
+}
+#android-studio[hidden] { display:none !important; }
+#android-studio * { box-sizing:border-box; }
+#android-studio button, #android-studio select {
+  min-height:44px; padding:8px 11px; border-radius:9px; border:1px solid #76604c;
+  background:#35291f; color:#f8eee1; font:600 14px/1.1 system-ui,sans-serif;
+  touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+}
+#android-studio button:active { background:#995024; }
+#android-studio button:disabled { opacity:.33; }
+#android-studio button:focus-visible { outline:2px solid #ffa75f; }
+#android-studio .studio-accent { background:#823d19; border-color:#ef9855; }
+#android-studio .studio-selected { background:#a85819; border-color:#ffc47e; }
+#android-studio .studio-active { background:#664121; border-color:#efb667; }
+#android-studio .studio-bar, #android-studio .studio-tabs {
+  display:flex; flex:0 0 auto; gap:6px; align-items:center; min-width:0;
+}
+#android-studio .studio-bar { justify-content:space-between; }
+#android-studio .studio-bar strong { font-size:17px; white-space:nowrap; }
+#android-studio .studio-status { flex:1; text-align:center; color:#d2b796; font-size:12px; min-width:0; }
+#android-studio .studio-tabs { overflow-x:auto; scrollbar-width:thin; overscroll-behavior-x:contain; -webkit-overflow-scrolling:touch; padding-bottom:3px; }
+#android-studio .studio-tabs button { flex:0 0 auto; min-width:102px; white-space:nowrap; padding-inline:7px; font-size:12px; }
+#android-studio .studio-main {
+  display:grid; grid-template-columns:minmax(0,1.14fr) minmax(0,1fr);
+  gap:9px; flex:1 1 auto; min-height:0;
+}
+#android-studio .studio-side { min-width:0; min-height:0; overflow:auto; scrollbar-width:thin; }
+#android-studio .studio-steps-panel {
+  display:flex; flex-direction:column; min-width:0; min-height:0; gap:6px;
+}
+#android-studio .studio-pager {
+  display:flex; flex:0 0 auto; gap:8px; align-items:center; justify-content:space-between;
+}
+#android-studio .studio-pager span { flex:1; text-align:center; font-size:14px; font-weight:700; color:#f5bc79; }
+#android-studio #studio-grid {
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-rows:repeat(4,minmax(47px,1fr));
+  gap:5px; flex:1 1 auto; min-height:0;
+}
+#android-studio #studio-grid button {
+  min-width:0; min-height:47px; padding:4px; display:flex; flex-direction:column;
+  justify-content:center; gap:3px; background:#251e18; border-color:#5b5046;
+}
+#android-studio #studio-grid button.selected { border:2px solid #ffc06f; background:#66401e; }
+#android-studio #studio-grid button.occupied { background:#4b4420; border-color:#a78b41; }
+#android-studio #studio-grid button.selected.occupied { background:#9b5723; border-color:#ffcd8e; }
+#android-studio #studio-grid button small { display:block; font-size:10px; color:#d9bf9f; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; max-width:100%; }
+#android-studio .studio-row { display:flex; align-items:center; flex-wrap:wrap; gap:5px; margin-bottom:9px; }
+#android-studio .studio-row button { min-width:44px; }
+#android-studio .studio-row label { font-size:13px; color:#dec8ad; font-weight:700; }
+#android-studio .studio-row strong { min-width:50px; text-align:center; }
+#android-studio .studio-title { margin:4px 0 8px; font-weight:800; font-size:17px; color:#ffca89; }
+#android-studio .studio-lanes {
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px;
+}
+#android-studio .studio-lanes button {
+  min-width:0; min-height:48px; padding:3px; font-size:11px;
+}
+#android-studio #studio-message { color:#f4c38a; font-size:12px; min-height:16px; }
+#android-studio .studio-help { font-size:12px; color:#ae9880; margin:5px 0; }
+#android-studio .studio-slots button { min-height:44px; }
+#open-studio {
+  display:block; width:100%; min-height:53px;
+  border:1px solid #df9859; border-radius:9px;
+  background:#643519; color:#fff3e6;
+  font:bold 16px system-ui,sans-serif; margin:8px 0 12px;
+  touch-action:manipulation;
+}
+@media (max-height:400px) and (orientation:landscape) {
+  #android-studio .studio-tabs button { min-height:40px; }
+  #android-studio .studio-bar button { min-height:40px; }
+  #android-studio #studio-grid { grid-template-rows:repeat(4,minmax(42px,1fr)); }
+  #android-studio #studio-grid button { min-height:42px; }
+}
+</style>

@@ -1,0 +1,5 @@
+<style id="mpyre-usb-diag-style">
+#mpyre-usb-diagnostics{color:#f0c38a;background:#21160d;border:1px solid #c36634;border-radius:8px;margin:8px 10px;padding:7px 12px;font:13px/1.45 system-ui,sans-serif}
+#mpyre-usb-diagnostics summary{cursor:pointer;font-weight:700;padding:6px 0}
+#mpyre-usb-diagnostics pre{color:#e5d8c8;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.5 ui-monospace,monospace;user-select:text}
+</style>

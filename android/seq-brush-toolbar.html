@@ -1,0 +1,34 @@
+      <div id="seqbrush" class="seqbrush" role="group" aria-label="Step brush and bulk editor">
+        <div class="brushrow">
+          <strong>DRAG TO EDIT</strong>
+          <button type="button" data-brush="navigate" aria-pressed="true">Navigate / tap</button>
+          <button type="button" data-brush="tie" aria-pressed="false">↔ Tie</button>
+          <button type="button" data-brush="repeat" aria-pressed="false">•• Repeat</button>
+          <button type="button" data-brush="erase" aria-pressed="false">Erase</button>
+          <button type="button" data-brush="select" aria-pressed="false">Select range</button>
+          <label>Pitch <input id="seqbrush-pitch" type="number" min="0" max="127" value="60" title="MIDI pitch used in the flat step view (60 = C4)"></label>
+          <label>Every <select id="seqbrush-spacing" title="Spacing for repeated notes"><option value="1">step</option><option value="2">2 steps</option><option value="4">4 steps</option></select></label>
+          <label>Ratchet <select id="seqbrush-ratchet" title="Retriggers per note"><option value="1">x1</option><option value="2">x2</option><option value="3">x3</option><option value="4">x4</option></select></label>
+        </div>
+        <div class="brushrow">
+          <strong>BULK EDIT</strong>
+          <label>Steps <input id="seqbrush-from" type="number" min="1" max="64" value="1" aria-label="First selected step">–
+            <input id="seqbrush-to" type="number" min="1" max="64" value="16" aria-label="Last selected step"></label>
+          <button type="button" data-bulk="all">Select all</button>
+          <button type="button" data-bulk="copy">Copy</button>
+          <button type="button" data-bulk="paste">Paste at start</button>
+          <button type="button" data-bulk="clear">Clear</button>
+          <button type="button" data-bulk="shiftleft">Shift ←</button>
+          <button type="button" data-bulk="shiftright">Shift →</button>
+          <button type="button" data-bulk="down">−1 semitone</button>
+          <button type="button" data-bulk="up">+1 semitone</button>
+          <button type="button" data-bulk="octdown">−12</button>
+          <button type="button" data-bulk="octup">+12</button>
+          <button type="button" data-bulk="veldown">Vel −10</button>
+          <button type="button" data-bulk="velup">Vel +10</button>
+          <button type="button" data-bulk="accenton">Accent ON</button>
+          <button type="button" data-bulk="accentoff">Accent OFF</button>
+          <button type="button" data-bulk="ratchet">Set ratchet</button>
+        </div>
+        <p id="seqbrush-status" role="status" aria-live="polite">Choose a drag mode, then drag across steps. TIE holds one note; REPEAT retriggers each step; x2–x4 adds ratchets.</p>
+      </div>

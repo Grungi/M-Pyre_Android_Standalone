@@ -1,0 +1,5 @@
+Creative Commons CC0 1.0 Universal public-domain dedication
+Full legalcode: https://creativecommons.org/publicdomain/zero/1.0/legalcode
+Sample provenance: LICENSES/SAMPLES-CC0-ATTRIBUTION.txt
+The Android fallback percussion samples are transformed from CC0 originals
+(trimmed, gain-adjusted, resampled and mapped to MIDI percussion notes).
