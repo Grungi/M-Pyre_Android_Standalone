@@ -5,12 +5,41 @@ Designed for POCO X6 Pro / Android 16; minSdk 26. No hardware FM-1 required.
 
 The original private development repository and its commit history are not part of this public repository. This public project has independent commit history. See [PUBLIC_MIRROR.md](PUBLIC_MIRROR.md) for provenance and release requirements.
 
-## Build the APK
+## Download and install the ready-made Android APK
 
-Every push to `main` starts **Actions → Build M-PYRE Home Drum Touch v18**. You can also use **Run workflow**.
-After a successful run, download the `M-PYRE-Android-v1.0.3-8Tracks-v18-HomeDrumTouch-debug-APK` artifact and unpack `app-debug.apk`. Distribute the matching `M-PYRE-v18-corresponding-source` artifact alongside any APK or standalone editor.
-Copy it to your Android phone and install (allow installation from your file manager if Android prompts).
-Start the app, tap POWER, and use the virtual keyboard, knobs and buttons.
+**You do not need to compile the app.** The public GitHub Actions workflow
+provides a ready-to-install APK after every successful build.
+
+1. Open **[M-PYRE Android APK builds (GitHub Actions)](https://github.com/Grungi/M-Pyre_Android_Standalone/actions/workflows/build-apk.yml)**.
+2. Select the **most recent successful** run on the `main` branch (green check mark).
+   For example, the [verified v18 public build](https://github.com/Grungi/M-Pyre_Android_Standalone/actions/runs/43960808388) succeeded.
+3. Scroll to **Artifacts** at the bottom of the run page. Download
+   **`M-PYRE-Android-v1.0.3-8Tracks-v18-HomeDrumTouch-debug-APK`**.
+   GitHub may ask you to sign in before downloading workflow artifacts.
+4. The download is a **ZIP archive**, not the APK itself. Extract it and find
+   **`app-debug.apk`** inside.
+5. Transfer **`app-debug.apk`** to your Android phone, open it from
+   **Files / Downloads**, and confirm installation. If Android blocks the
+   installer, follow the system prompt to allow **Install unknown apps**
+   for your file manager or browser. Only install a build you trust.
+6. Launch **M-PYRE Drum Touch**, tap **POWER**, and start playing.
+
+**Important:** This is a **debug/test APK**, not a signed production release.
+Debug APK signing keys can change between builds, so installing an update over
+an older version may fail. Export your `.mpyre` songs before uninstalling a
+previous APK. GitHub Actions artifacts **expire**; if an example link stops
+working, use the workflow link above and pick the newest successful run.
+
+The same run also provides a **`M-PYRE-v18-corresponding-source`** artifact
+containing the exact matching source code and licensing notices.
+If you redistribute the APK, provide that matching source as well. A persistent,
+direct APK download would require a GitHub **Release**; currently downloads
+are provided through Actions artifacts.
+
+## Build the APK yourself
+
+Requires Python 3.12, LLVM/Clang, Android SDK 35, JDK 17 and Gradle 8.9.
+See [Rebuild yourself](#rebuild-yourself) for commands and details.
 
 ## Low-latency test build (Android)
 
