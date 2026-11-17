@@ -567,7 +567,7 @@ function restoreSongOrder() {
         raise RuntimeError("Could not place audio diagnostics")
     html = html.replace(diag_marker,
         '<div class="foot"><div id="audio-diagnostics" aria-live="polite">Audio: '
-        'Live-Modus (geringe Latenz)</div></div>\\n' + diag_marker, 1)
+        'Live-Modus (geringe Latenz)</div></div>\n' + diag_marker, 1)
     # Insert Studio after the existing browser script, preserving the firmware
     # boot sequence, localStorage project logic, and low-latency audio path.
     if html.count("</script>") != 1:
